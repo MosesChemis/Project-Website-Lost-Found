@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pencari Barang Sekolah</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#beranda" data-tab="beranda">
+      <img id="logo" alt="Logo" width="40" height="40">
+      <span id="namaSekolah">Nama Sekolah</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Buka menu">☰</button>
+    <nav id="menu" aria-label="Menu utama">
+      <button data-tab="beranda" class="on">Beranda</button>
+      <button data-tab="cari">Cari Barang</button>
+      <button data-tab="admin">Admin</button>
+      <button data-tab="kontak">Kontak</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- BERANDA -->
+  <section id="beranda" class="tab on">
+    <div class="hero">
+      <img id="fotoSekolah" alt="Foto sekolah">
+      <div class="hero-text wrap">
+        <h1>Barangmu hilang di sekolah? Cari di sini.</h1>
+        <p id="slogan"></p>
+        <form id="formCepat" class="quick">
+          <input id="cariCepat" type="search" placeholder="Ketik nama barang, mis. tas, botol, kunci" aria-label="Cari barang">
+          <button class="btn">Cari barang</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="stats" id="stats"></div>
+
+      <h2>Cara kerjanya</h2>
+      <ol class="steps">
+        <li><b>Cari barangmu</b><span>Buka tab Cari Barang, lalu ketik nama atau pilih kategori.</span></li>
+        <li><b>Cocokkan ciri-cirinya</b><span>Lihat foto, lokasi ditemukan, dan tanggalnya.</span></li>
+        <li><b>Ambil di ruang penyimpanan</b><span>Datang ke petugas dengan membawa bukti kepemilikan.</span></li>
+      </ol>
+
+      <h2>Barang terbaru</h2>
+      <div class="grid" id="terbaru"></div>
+      <p><button class="btn ghost" data-tab="cari">Lihat semua barang</button></p>
+    </div>
+  </section>
+
+  <!-- CARI -->
+  <section id="cari" class="tab">
+    <div class="wrap">
+      <h2>Cari Barang</h2>
+      <div class="filters">
+        <input id="q" type="search" placeholder="Nama barang atau ciri-ciri" aria-label="Kata kunci">
+        <select id="fKategori" aria-label="Kategori"></select>
+        <select id="fStatus" aria-label="Status">
+          <option value="">Semua status</option>
+          <option>Belum diambil</option>
+          <option>Sudah diambil</option>
+        </select>
+      </div>
+      <p id="jumlah" class="muted"></p>
+      <div class="grid" id="hasil"></div>
+    </div>
+  </section>
+
+  <!-- ADMIN -->
+  <section id="admin" class="tab">
+    <div class="wrap">
+      <div id="loginBox" class="card narrow">
+        <h2>Login Admin</h2>
+        <form id="formLogin">
+          <label>Username <input id="user" autocomplete="username" required></label>
+          <label>Password <input id="pass" type="password" autocomplete="current-password" required></label>
+          <p id="loginErr" class="err" role="alert"></p>
+          <button class="btn">Masuk</button>
+        </form>
+      </div>
+
+      <div id="panel" hidden>
+        <div class="row-between">
+          <h2>Panel Admin</h2>
+          <button class="btn ghost" id="logout">Keluar</button>
+        </div>
+
+        <div class="two">
+          <form id="formBarang" class="card">
+            <h3 id="judulForm">Tambah barang</h3>
+            <input type="hidden" id="editId">
+            <label>Nama barang <input id="bNama" required></label>
+            <label>Kategori <select id="bKategori"></select></label>
+            <label>Lokasi ditemukan <input id="bLokasi" required placeholder="mis. Kantin, Lab Komputer"></label>
+            <label>Tanggal ditemukan <input id="bTanggal" type="date" required></label>
+            <label>Ciri-ciri <textarea id="bDesk" rows="3"></textarea></label>
+            <label>Status <select id="bStatus"><option>Belum diambil</option><option>Sudah diambil</option></select></label>
+            <label>Foto barang <input id="bFoto" type="file" accept="image/*"></label>
+            <img id="preview" class="preview" alt="" hidden>
+            <div class="actions">
+              <button class="btn">Simpan</button>
+              <button type="button" class="btn ghost" id="batal" hidden>Batal edit</button>
+            </div>
+          </form>
+
+          <div>
+            <div class="card">
+              <h3>Ganti foto sekolah</h3>
+              <p class="muted">Foto ini tampil di Beranda dan tersimpan di browser ini.</p>
+              <input id="uploadSekolah" type="file" accept="image/*">
+              <p><button class="btn ghost" id="resetSekolah">Kembalikan ke bawaan</button></p>
+            </div>
+            <div class="card">
+              <h3>Pesan masuk</h3>
+              <div id="pesan"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Daftar barang</h3>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Foto</th><th>Barang</th><th>Lokasi</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead>
+              <tbody id="tabel"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAK -->
+  <section id="kontak" class="tab">
+    <div class="wrap">
+      <h2>Kontak</h2>
+      <div class="two">
+        <div class="card">
+          <img id="fotoKontak" class="kontak-img" alt="Gedung sekolah">
+          <ul class="info" id="info"></ul>
+        </div>
+        <form id="formKontak" class="card">
+          <h3>Kirim pesan ke petugas</h3>
+          <label>Nama <input id="kNama" required></label>
+          <label>Kelas / email <input id="kKontak" required></label>
+          <label>Pesan <textarea id="kPesan" rows="5" required placeholder="Ceritakan barang yang kamu cari"></textarea></label>
+          <button class="btn">Kirim pesan</button>
+          <p id="kOk" class="ok" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap" id="footer"></div></footer>
+
+<script src="script.js"></script>
+</body>
+</html>
